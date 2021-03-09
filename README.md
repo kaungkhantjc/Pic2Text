@@ -1,5 +1,5 @@
-# Open Source Pic SMS App
-<h1 align="center">Hi 👋, I'm Kaung Khant Kyaw (Justice Coder).</h1>
+## Open Source Pic SMS App
+<h2 align="center">Hi 👋, I'm Kaung Khant Kyaw (Justice Coder).</h2>
 <h3 align="center">A freelance developer from Myanmar.</h3>
 <h4>Have feature request, bug report or any suggestion?</h4>
 <h3 align="left">Connect with me:</h3>

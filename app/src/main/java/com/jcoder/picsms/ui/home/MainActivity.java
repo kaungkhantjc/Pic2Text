@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void openGithub() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("https://github.com/kaungkhantjc/"));
+        intent.setData(Uri.parse("https://github.com/kaungkhantjc/Pic2Text/"));
         startActivity(intent);
     }
 }

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="number_badge_color">#353535</color>
+    <color name="warning_color">#686801</color>
+</resources>

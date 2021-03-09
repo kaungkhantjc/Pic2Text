@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">Pic SMS</string>
+    <string name="picture_to_text">Picture to Text</string>
+    <string name="paste_hint">Paste Base64 Text</string>
+    <string name="text_to_picture">Text to Picture</string>
+    <string name="bitmap_quality">Bitmap Quality</string>
+    <string name="_50_percent">50%</string>
+    <string name="_80_percent">80%</string>
+    <string name="picture_resolution">Picture Resolution</string>
+    <string name="send_all">Send All</string>
+    <string name="copy_all">Copy All</string>
+    <string name="text_copied">Text copied successfully.</string>
+    <string name="copy">Copy</string>
+    <string name="preview">Preview</string>
+    <string name="all_texts">All Texts</string>
+    <string name="result">Result</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="invalid_phone">Invalid phone number</string>
+    <string name="sms_warning">Warning : Operators deduct approximately 15 Kyats per 160 characters (1 Chunk). It is recommended to send only if you have unlimited free SMS package.</string>
+    <string name="sending_sms">Sending All SMS to %s …</string>
+    <string name="default_sim">Default SIM</string>
+    <string name="chunk_progress">Chunk Progress</string>
+    <string name="sms_progress">SMS Progress</string>
+    <string name="cancel_confirmation_title">Cancel Confirmation</string>
+    <string name="_0_percent">0%</string>
+    <string name="press_again_to_cancel">Press again to cancel</string>
+    <string name="add_to_list">Add to list</string>
+    <string name="or">OR</string>
+    <string name="add_from_messages">Add from Messages</string>
+    <string name="empty">Empty</string>
+    <string name="code_delete_confirmation">Are you sure to delete code order %s?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="miui_warning_title">MIUI Detected</string>
+    <string name="miui_warning_send_sms_read_phone_state">PLEASE READ CAREFULLY!
+\n\n
+User apps cannot REQUEST some runtime permissions in MIUI. You need to allow it manually.
+\n\n
+Required Permissions
+\n\n
+- Send SMS Messages (Always allow)
+\n\n
+- Get device info (Always allow)
+\n\n
+"Send SMS Messages" permission is required to send SMS in background.\n
+"Get device info" permission is required to select default SIM for SMS.</string>
+    <string name="save">Save</string>
+    <string name="error_saving_picture">Unexpected error occurred while saving picture.</string>
+    <string name="saved_picture">saved picture successfully.</string>
+    <string name="done">Done</string>
+    <string name="pick_sms">Pick SMS</string>
+    <string name="set_default_sms_app">Set default SMS app</string>
+    <string name="pick_message_details">To pick Messages, make it your default SMS app.</string>
+    <string name="miui_warning_read_sms">PLEASE READ CAREFULLY!
+\n\n
+User apps cannot REQUEST some runtime permissions in MIUI. You need to allow it manually.
+\n\n
+Required Permission
+\n\n
+- Read SMS Messages (Always allow)
+\n\n
+"Read SMS Messages" permission is required to pick messages.</string>
+    <string name="home">Home</string>
+    <string name="_selected">%d Selected</string>
+    <string name="optimize_resolution">Optimize resolution to reduce SMS count</string>
+    <string name="github">Github</string>
+    <string name="read_sms_permission_title">Need Read SMS Permission</string>
+    <string name="read_sms_permission_message">For security reasons, apps cannot request Read SMS permission at runtime. Please allow it in settings.</string>
+    <string name="open_settings">Open Settings</string>
+</resources>

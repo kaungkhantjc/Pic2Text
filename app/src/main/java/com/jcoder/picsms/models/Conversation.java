@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Conversation {
     private final String address, body;
-    private final String date;
+    private final long date;
 
-    private ArrayList<Message> messages = new ArrayList<>();
+    private final ArrayList<Message> messages = new ArrayList<>();
 
-    public Conversation(String address, String body, String date) {
+    public Conversation(String address, String body, long date) {
         this.address = address;
         this.body = body;
         this.date = date;
@@ -22,7 +22,7 @@ public class Conversation {
         return body;
     }
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 

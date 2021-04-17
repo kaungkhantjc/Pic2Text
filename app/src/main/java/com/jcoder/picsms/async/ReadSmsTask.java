@@ -21,8 +21,9 @@ public class ReadSmsTask implements Callable<ArrayList<Conversation>> {
     @Override
     public ArrayList<Conversation> call() {
 
-        final ArrayList<Message> messages = new ArrayList<>();
+        // final ArrayList<Message> messages = new ArrayList<>();
         final ArrayList<Conversation> conversations = new ArrayList<>();
+        final ArrayList<String> addressList = new ArrayList<>();
 
         Uri smsUri = Uri.parse("content://sms/");
         Cursor cursor = contentResolver.query(smsUri,
@@ -32,33 +33,49 @@ public class ReadSmsTask implements Callable<ArrayList<Conversation>> {
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
                 Message message = new Message(cursor);
-                messages.add(message);
+                String address = message.getAddress();
+
+                int index = addressList.indexOf(address);
+
+                if (index < 0) {
+                    addressList.add(address);
+                    Conversation conversation = new Conversation(
+                            address,
+                            message.getBody(),
+                            message.getDate()
+                    );
+                    conversation.addMessage(message);
+                    conversations.add(conversation);
+                } else {
+                    Conversation conversation = conversations.get(index);
+                    conversation.addMessage(message);
+                    conversations.set(index, conversation);
+                }
             }
+
+            cursor.close();
         }
 
-        cursor.close();
 
-        ArrayList<String> addressList = new ArrayList<>();
-
-        for (Message message : messages) {
-            String address = message.getAddress();
-
-            if (!addressList.contains(address)) {
-                addressList.add(address);
-                Conversation conversation = new Conversation(
-                        address,
-                        message.getBody(),
-                        message.getDate()
-                );
-                conversations.add(conversation);
-            }
-
-            int index = addressList.indexOf(address);
-            Conversation conversation = conversations.get(index);
-            conversation.addMessage(message);
-            conversations.set(index, conversation);
-        }
-
+//        for (Message message : messages) {
+//            String address = message.getAddress();
+//
+//            if (!addressList.contains(address)) {
+//                addressList.add(address);
+//                Conversation conversation = new Conversation(
+//                        address,
+//                        message.getBody(),
+//                        message.getDateStr()
+//                );
+//                conversations.add(conversation);
+//            }
+//
+//            int index = addressList.indexOf(address);
+//            Conversation conversation = conversations.get(index);
+//            conversation.addMessage(message);
+//            conversations.set(index, conversation);
+//        }
         return conversations;
     }
+
 }

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textview.MaterialTextView;
 import com.jcoder.picsms.R;
-import com.jcoder.picsms.models.TextToPicModel;
+import com.jcoder.picsms.models.CodePart;
 
 import java.util.ArrayList;
 
@@ -19,9 +19,9 @@ public class TextToPicAdapter extends RecyclerView.Adapter<TextToPicAdapter.Plac
     private OnItemLongClickedListener onItemLongClickedListener;
     private OnDeleteClickedListener onDeleteClickedListener;
 
-    private final ArrayList<TextToPicModel> codeList;
+    private final ArrayList<CodePart> codeList;
 
-    public TextToPicAdapter(ArrayList<TextToPicModel> codeList) {
+    public TextToPicAdapter(ArrayList<CodePart> codeList) {
         this.codeList = codeList;
     }
 
@@ -33,7 +33,7 @@ public class TextToPicAdapter extends RecyclerView.Adapter<TextToPicAdapter.Plac
 
     @Override
     public void onBindViewHolder(@NonNull PlaceHolder holder, int position) {
-        TextToPicModel model = codeList.get(position);
+        CodePart model = codeList.get(position);
         holder.tvNumber.setText(model.getFormattedOrder());
         holder.tvCode.setText(model.getCode());
 

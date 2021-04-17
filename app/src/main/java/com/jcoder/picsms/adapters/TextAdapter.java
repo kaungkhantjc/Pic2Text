@@ -1,24 +1,32 @@
 package com.jcoder.picsms.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.textview.MaterialTextView;
 import com.jcoder.picsms.R;
+import com.jcoder.picsms.databinding.ItemTextBinding;
 import com.jcoder.picsms.utils.ChunkUtils;
 import com.jcoder.picsms.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class TextAdapter extends RecyclerView.Adapter<TextAdapter.PlaceHolder> {
 
+    private final Context context;
+    private final ArrayList<Boolean> sentStates;
     private OnItemLongClickedListener onItemLongClickedListener;
     private OnCopyClickedListener onCopyClickedListener;
+
+    public TextAdapter(Context context, ArrayList<Boolean> sentStates) {
+        this.context = context;
+        this.sentStates = sentStates;
+    }
 
     @NonNull
     @Override
@@ -28,12 +36,22 @@ public class TextAdapter extends RecyclerView.Adapter<TextAdapter.PlaceHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PlaceHolder holder, int position) {
+        boolean smsSent = sentStates.get(position);
 
-        holder.tvNumber.setText(String.valueOf(position + 1));
-        holder.tvChunk.setText(String.format(Locale.ENGLISH, "Chunks : %d", ChunkUtils.getChunkCount(Constants.list[position])));
+        holder.binding.tvSentBadge.setText(R.string.sms_sent);
+        holder.binding.tvSentBadge.setVisibility(smsSent ? View.VISIBLE : View.INVISIBLE);
+
+        holder.binding.tvNumber.setText(String.format(Locale.getDefault(), "%d", (position + 1)));
+        if (position == Constants.list.length - 1) {
+            // calculating chunk count is wasting memory
+            // So I only count chunks of last item
+            holder.binding.tvChunk.setText(String.format(Locale.getDefault(), context.getString(R.string.chunks), ChunkUtils.getChunkCount(Constants.list[position])));
+        } else {
+            holder.binding.tvChunk.setText(String.format(Locale.getDefault(), context.getString(R.string.chunks), 8));
+        }
 
         if (onCopyClickedListener != null)
-            holder.ivCopy.setOnClickListener(v -> {
+            holder.binding.ivCopy.setOnClickListener(v -> {
                 int pos = holder.getAdapterPosition();
                 onCopyClickedListener.onCopyClicked(ChunkUtils.getSortedText(pos, Constants.list[pos]));
             });
@@ -48,18 +66,21 @@ public class TextAdapter extends RecyclerView.Adapter<TextAdapter.PlaceHolder> {
 
     @Override
     public int getItemCount() {
-        return Constants.list.length;
+        // Constants.list become null in SendSmsActivity @onDestroy method
+        // When user closes activity while recycler is scrolling, getItemCount method is still calling
+        // so we need to handle like this
+        return Constants.list != null ? Constants.list.length : 0;
     }
 
     public static class PlaceHolder extends RecyclerView.ViewHolder {
-        MaterialTextView tvNumber, tvChunk;
-        AppCompatImageView ivCopy;
+        ItemTextBinding binding;
 
         public PlaceHolder(@NonNull View itemView) {
             super(itemView);
-            tvNumber = itemView.findViewById(R.id.item_text_tv_number);
-            tvChunk = itemView.findViewById(R.id.item_text_tv_chunk);
-            ivCopy = itemView.findViewById(R.id.item_text_iv_copy);
+            binding = ItemTextBinding.bind(itemView);
+            // just for ripple effect
+            itemView.setOnClickListener(v -> {
+            });
         }
     }
 

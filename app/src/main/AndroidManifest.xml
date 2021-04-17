@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
 
-
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="27"
@@ -17,35 +16,66 @@
         android:maxSdkVersion="28"
         tools:ignore="ScopedStorage" />
 
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pic2Text">
+
         <activity
-            android:name=".ui.PickSmsActivity"
-            android:label="@string/pick_sms" />
+            android:name=".ui.library.PictureLibraryActivity"
+            android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
+            android:label="@string/title_activity_picture_library" />
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".ui.picksms.PickSmsActivity"
+            android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
+            android:label="@string/title_activity_pick_sms" />
         <activity
             android:name=".ui.home.TextToPicActivity"
-            android:label="@string/text_to_picture" />
+            android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
+            android:label="@string/btn_text_to_picture" />
         <activity
             android:name=".ui.home.PicToTextActivity"
-            android:label="@string/picture_to_text" />
+            android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
+            android:label="@string/btn_picture_to_text" />
         <activity
-            android:name=".ui.WebActivity"
-            android:label="@string/all_texts" />
+            android:name=".ui.web.WebActivity"
+            android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
+            android:label="@string/menu_all_texts" />
         <activity
-            android:name=".ui.PictureActivity"
-            android:label="@string/result" />
-        <activity android:name=".ui.TextActivity" />
-        <activity android:name=".ui.home.MainActivity">
+            android:name=".ui.picture.PictureActivity"
+            android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
+            android:label="@string/title_activity_result" />
+        <activity
+            android:name=".ui.sendsms.SendSmsActivity"
+            android:configChanges="orientation|screenLayout|screenSize|keyboardHidden" />
+
+        <activity
+            android:name=".ui.home.MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.app.role.SMS" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android-dir/mms-sms" />
             </intent-filter>
         </activity>
 
@@ -58,6 +88,58 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/paths" />
         </provider>
+
+        <activity android:name=".fake.FakeSendActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SENDTO" />
+
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".fake.FakeHeadlessSmsSendService"
+            android:permission="android.permission.SEND_RESPOND_VIA_MESSAGE">
+            <intent-filter>
+                <action android:name="android.intent.action.RESPOND_VIA_MESSAGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="sms" />
+                <data android:scheme="smsto" />
+                <data android:scheme="mms" />
+                <data android:scheme="mmsto" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name=".fake.SmsReceiver"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_DELIVER" />
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".fake.FakeMmsReceiver"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_WAP_PUSH">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.WAP_PUSH_DELIVER" />
+                <action android:name="android.provider.Telephony.WAP_PUSH_RECEIVE" />
+
+                <data android:mimeType="application/vnd.wap.mms-message" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

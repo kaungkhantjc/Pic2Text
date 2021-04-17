@@ -60,6 +60,7 @@ public class SavePictureTask implements Callable<String> {
             } else return false;
 
         } else {
+            //noinspection deprecation
             String imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString() + File.separator + context.getString(R.string.app_name);
 
             File file = new File(imagesDir);
@@ -69,14 +70,12 @@ public class SavePictureTask implements Callable<String> {
             File image = new File(imagesDir, name);
             OutputStream fos = new FileOutputStream(image);
 
-            if (fos != null) {
-                fos.write(bytes);
-                fos.flush();
-                fos.close();
+            fos.write(bytes);
+            fos.flush();
+            fos.close();
 
-                MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, new String[]{"image/jpg"}, null);
-                return true;
-            } else return false;
+            MediaScannerConnection.scanFile(context, new String[]{file.getPath()}, new String[]{"image/jpg"}, null);
+            return true;
         }
 
 

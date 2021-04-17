@@ -12,8 +12,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-
+        <item name="alertDialogTheme">@style/MaterialDialogTheme</item>
         <item name="bottomSheetDialogTheme">@style/MyDialog</item>
+    </style>
+
+    <style name="MaterialDialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="dialogCornerRadius">10dp</item>
     </style>
 
     <style name="MyDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">

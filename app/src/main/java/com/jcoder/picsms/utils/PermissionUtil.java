@@ -79,21 +79,8 @@ public class PermissionUtil {
             localIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             localIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             activity.startActivityForResult(localIntent, REQ_CODE_FOR_MIUI);
-
-
         } catch (Exception ignored1) {
-            try {
-                // MiUi 5/6/7
-                Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
-                localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
-                localIntent.putExtra("extra_pkgname", activity.getPackageName());
-                localIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                localIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                activity.startActivityForResult(localIntent, REQ_CODE_FOR_MIUI);
-
-            } catch (Exception ignored2) {
-                openSettings();
-            }
+            openSettings();
         }
     }
 

@@ -3,6 +3,7 @@ package com.jcoder.picsms.utils;
 import android.os.Build;
 import android.telephony.SmsManager;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class ChunkUtils {
@@ -34,6 +35,5 @@ public class ChunkUtils {
     public static String getSortedText(int position, String text) {
         return String.format(Locale.ENGLISH, "(%d-%s", position, text);
     }
-
 
 }

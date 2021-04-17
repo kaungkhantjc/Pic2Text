@@ -1,22 +1,18 @@
 <resources>
     <string name="app_name">Pic SMS</string>
-    <string name="picture_to_text">Picture to Text</string>
-    <string name="paste_hint">Paste Base64 Text</string>
-    <string name="text_to_picture">Text to Picture</string>
+
+    <string name="paste_code_hint">Paste Codes</string>
     <string name="bitmap_quality">Bitmap Quality</string>
     <string name="_50_percent">50%</string>
     <string name="_80_percent">80%</string>
     <string name="picture_resolution">Picture Resolution</string>
-    <string name="send_all">Send All</string>
-    <string name="copy_all">Copy All</string>
+    <string name="pick_a_picture_first">Please pick a picture first.</string>
     <string name="text_copied">Text copied successfully.</string>
-    <string name="copy">Copy</string>
-    <string name="preview">Preview</string>
-    <string name="all_texts">All Texts</string>
-    <string name="result">Result</string>
+
+    <string name="chunks">Chunks : %d</string>
     <string name="enter_phone_number">Enter Phone Number</string>
     <string name="invalid_phone">Invalid phone number</string>
-    <string name="sms_warning">Warning : Operators deduct approximately 15 Kyats per 160 characters (1 Chunk). It is recommended to send only if you have unlimited free SMS package.</string>
+    <string name="sms_warning">Warning : Operators deduct approximately 15 Kyats per 160 characters (1 Chunk). It is recommended to send only if you have unlimited SMS package.</string>
     <string name="sending_sms">Sending All SMS to %s …</string>
     <string name="default_sim">Default SIM</string>
     <string name="chunk_progress">Chunk Progress</string>
@@ -26,45 +22,172 @@
     <string name="press_again_to_cancel">Press again to cancel</string>
     <string name="add_to_list">Add to list</string>
     <string name="or">OR</string>
-    <string name="add_from_messages">Add from Messages</string>
     <string name="empty">Empty</string>
-    <string name="code_delete_confirmation">Are you sure to delete code order %s?</string>
-    <string name="no">No</string>
-    <string name="yes">Yes</string>
-    <string name="miui_warning_title">MIUI Detected</string>
-    <string name="miui_warning_send_sms_read_phone_state">PLEASE READ CAREFULLY!
-\n\n
-User apps cannot REQUEST some runtime permissions in MIUI. You need to allow it manually.
-\n\n
-Required Permissions
-\n\n
-- Send SMS Messages (Always allow)
-\n\n
-- Get device info (Always allow)
-\n\n
-"Send SMS Messages" permission is required to send SMS in background.\n
-"Get device info" permission is required to select default SIM for SMS.</string>
+    <string name="invalid_code_part">Invalid code</string>
+    <string name="cannot_decode_text_to_pic">Cannot decode text into picture.</string>
+
     <string name="save">Save</string>
     <string name="error_saving_picture">Unexpected error occurred while saving picture.</string>
     <string name="saved_picture">saved picture successfully.</string>
-    <string name="done">Done</string>
-    <string name="pick_sms">Pick SMS</string>
-    <string name="set_default_sms_app">Set default SMS app</string>
-    <string name="pick_message_details">To pick Messages, make it your default SMS app.</string>
-    <string name="miui_warning_read_sms">PLEASE READ CAREFULLY!
-\n\n
-User apps cannot REQUEST some runtime permissions in MIUI. You need to allow it manually.
-\n\n
-Required Permission
-\n\n
-- Read SMS Messages (Always allow)
-\n\n
-"Read SMS Messages" permission is required to pick messages.</string>
+
     <string name="home">Home</string>
     <string name="_selected">%d Selected</string>
     <string name="optimize_resolution">Optimize resolution to reduce SMS count</string>
-    <string name="github">Github</string>
-    <string name="read_sms_permission_title">Need Read SMS Permission</string>
-    <string name="read_sms_permission_message">For security reasons, apps cannot request Read SMS permission at runtime. Please allow it in settings.</string>
     <string name="open_settings">Open Settings</string>
+    <string name="no_code_parts_found">Sorry, No code parts found.</string>
+
+    <string name="auto_selecting_messages">auto selecting messages …</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="encoding">Encoding</string>
+    <string name="please_wait_while_saving">Please wait while saving …</string>
+
+    <string name="dev_fb_url" translatable="false">fb://profile/100012183557720</string>
+    <string name="dev_fb_url_external" translatable="false">https://www.facebook.com/kaungkhantkyawprofile</string>
+
+    <!-- Encodings -->
+    <string name="encoding_auto_detect">Auto Detect</string>
+    <string name="encoding_recommended">Recommended</string>
+    <string name="encoding_optimized_base91_v1_1_0">Optimized Base91</string>
+    <string name="encoding_optimized_base91_v1_1_0_message">Recommended (v1.1.0)</string>
+    <string name="encoding_base64_v1_0_0" translatable="false">Base64</string>
+    <string name="encoding_optimized_base91_version" translatable="false">v1.1.0</string>
+    <string name="encoding_base64_v1_0_0_message" translatable="false">v1.0.0</string>
+
+    <!-- Picture Library -->
+    <string name="file_name_already_exists">File name already exists.</string>
+    <string name="saved_to_picture_library">saved to Picture Library.</string>
+    <string name="picture_library_file_name">File name</string>
+    <string name="ask_to_save_in_picture_lib_message">Do you want to save current unfinished task in Picture Library? App will save codes and current sending SMS positions so that you can send it later.</string>
+    <string name="cannot_delete_file">cannot delete file</string>
+    <string name="file_deleted">%s has been deleted successfully.</string>
+    <string name="all_files_deleted">All files have been deleted successfully.</string>
+
+    <!-- Sending SMS -->
+    <string name="invalid_sms_position">Invalid SMS position</string>
+    <string name="sent_sms_position">Sent SMS Position</string>
+    <string name="do_not_save_sent_messages">Do not save sent messages</string>
+    <string name="default_sms_app_notice">Why do I need to set Default SMS app?\n\tWhile app send messages continuously, some devices like Xiaomi ask \"Send SMS\" runtime permission again and again. If you set Pic SMS as Default SMS app, this problem is gone.\n\nNotice\n\tPic SMS is not a normal messaging app. So please DO NOT forget that you must change it back to System Messaging app after you sent messages.\n\nHow to switch back to system Messaging app?\n\tJust open system Messaging app. It will ask you to change it back.</string>
+    <string name="default_sms_app_notice_home">Notice\n\tPic SMS is not a normal messaging app. So please DO NOT forget that you must change it back to System Messaging app after you sent messages.\n\nHow to switch back to system Messaging app?\n\tJust open system Messaging app. It will ask you to change it back.</string>
+
+    <string name="one_chunk">1 Chunk</string>
+    <string name="up_to_n_characters">up to %d characters</string>
+    <string name="one_sms">1 SMS</string>
+    <string name="total_sms">Total SMS</string>
+    <string name="total_chunks">Total Chunks</string>
+
+    <string name="sms_sent">sent</string>
+    <string name="total_sms_count">Total SMS : %d</string>
+    <string name="all_sms_sent">All SMS have been sent.</string>
+    <string name="sending_sms_cancelled_message">Sending SMS progress cancelled.\nReason : %s\nCurrent SMS position : %d</string>
+    <string name="sms_error_reason_user_cancelled">User cancelled</string>
+    <string name="sms_error_reason_generic_failure">Generic failure</string>
+    <string name="sms_error_reason_no_service">No Service</string>
+    <string name="sms_error_reason_null_pdu" translatable="false">NULL PDU</string>
+    <string name="sms_error_reason_radio_off">Radio Off</string>
+
+    <!-- Alert Dialogs -->
+    <string name="code_delete_confirmation">Are you sure to delete code order %s?</string>
+    <string name="delete_all_confirmation">Delete All Confirmation</string>
+    <string name="code_delete_all_message">Are you sure to delete all code part list?</string>
+    <string name="picture_library_delete_all_message">Are you sure to delete all files in Picture Library?</string>
+    <string name="picture_library_delete_file_message">Are you sure to delete %s file?</string>
+    <string name="how_sms_works_title">How SMS works?</string>
+    <string name="how_sms_works_message">Every time the text length exceeds average 153 characters, app divides it into new chunk to send as Multipart message. One SMS can hold up to 8 chunks.\n\n(Currently, Myanmar operators do not support MMS.)\n\nAlthough the text is divided into chunks and send, it is just one SMS.\nIt will deliver just one SMS to the recipient.\n\nOperators deduct approximately 15 Kyats per 160 characters (1 Chunk).\nSo it is recommended to send only if you have unlimited SMS package.\n\nIf the text contains English characters and some supported symbols only, 1 SMS can hold up to 1224 characters.\n\nIf the text contains other characters (like Myanmar characters), 1 SMS can hold only up to 536 characters.</string>
+
+    <!-- Permissions -->
+    <string name="permission_send_sms_read_phone_state_title">Need Some Permissions</string>
+    <string name="permission_send_sms_read_phone_state_message">App needs \n- Send SMS Permission (to send messages in background automatically)\n\n</string>
+    <string name="miui_warning_title">MIUI Detected</string>
+    <string name="miui_permission_send_sms_read_phone_state_message">PLEASE READ CAREFULLY!\n\nUser apps cannot REQUEST some runtime permissions in MIUI. You need to allow it manually.\n\nRequired Permissions\n\n- Send SMS Messages (Always allow)\n\n- Get device info (Always allow)\n\n"Send SMS Messages" permission is required to send SMS in background.\n"Get device info" permission is required to select default SIM for SMS.</string>
+    <string name="permission_read_sms_title">Need Read SMS Permission</string>
+    <string name="permission_read_sms_message">App needs Read SMS Messages Permission to pick messages.</string>
+    <string name="miui_permission_read_sms">PLEASE READ CAREFULLY!\n\nUser apps cannot REQUEST some runtime permissions in MIUI. You need to allow it manually.\n\nRequired Permission\n\n- Read SMS Messages (Always allow)\n\n"Read SMS Messages" permission is required to pick messages.</string>
+    <string name="default_permission_read_sms_message">For security reasons, apps cannot request Read SMS permission at runtime. Please allow it in settings.</string>
+    <string name="permission_need_storage_title">Need Storage Access</string>
+    <string name="permission_need_storage_message1">App needs Storage Access to pick picture.</string>
+    <string name="permission_need_storage_message2">App needs Storage Access to save picture.</string>
+
+    <!-- Activity Titles -->
+    <string name="title_activity_pick_sms">Pick SMS</string>
+    <string name="title_activity_result">Result</string>
+    <string name="title_activity_picture_library">Picture Library</string>
+
+    <!-- Menus -->
+    <string name="menu_github" translatable="false">Github</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_preview">Preview</string>
+    <string name="menu_save_to_picture_library">Save to picture library</string>
+    <string name="menu_done">Done</string>
+    <string name="menu_delete_all">Delete All</string>
+    <string name="menu_all_texts">All Texts</string>
+    <string name="menu_auto_select">Auto Select</string>
+    <string name="menu_select_all">Select all</string>
+    <string name="menu_deselect_all">Deselect all</string>
+    <string name="menu_auto_select_between">Auto select between</string>
+    <string name="menu_open">Open</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_path">Path</string>
+
+    <!-- Buttons -->
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_default">Default</string>
+    <string name="btn_no">No</string>
+    <string name="btn_yes">Yes</string>
+    <string name="btn_copy">Copy</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_pick_picture">Pick Picture</string>
+    <string name="btn_prepare_to_send">Prepare To Send</string>
+    <string name="btn_send_now">Send Now</string>
+    <string name="btn_copy_all">Copy All</string>
+    <string name="btn_picture_to_text">Picture to Text</string>
+    <string name="btn_text_to_picture">Text to Picture</string>
+    <string name="btn_add_from_messages">Add from Messages</string>
+    <string name="btn_do_not_ask">Don\'t ask</string>
+    <string name="btn_learn_more">Learn more</string>
+    <string name="btn_resend">Resend</string>
+    <string name="btn_set_as_default_sms_app">Set as default SMS app</string>
+    <string name="btn_open_system_messaging_app">Open System Messaging app</string>
+
+
+
+    <!-- Preference Titles -->
+    <string name="user_interface">User Interface</string>
+    <string name="about">About</string>
+    <string name="sms_picker">SMS Picker</string>
+    <string name="advanced">Advanced</string>
+
+    <!-- User Interface Preferences -->
+    <string name="app_theme_title">App Theme</string>
+    <string name="language">Language</string>
+
+    <!-- General Preferences -->
+    <string name="ask_to_save_in_picture_library_title">Ask to save in Picture Library</string>
+    <string name="ask_to_save_in_picture_library_summary">You can save and view unfinished tasks in Picture Library.</string>
+    <string name="remember_phone_number_title">Remember phone number</string>
+    <string name="remember_phone_number_summary">Recommended. App will save last sent phone number.</string>
+    <string name="remember_sim_slot_title">Remember SIM slot</string>
+    <string name="remember_sim_slot_summary">Recommended. App will save last selected SIM slot.</string>
+
+    <!-- SMS Picker Preferences -->
+    <string name="auto_select_type">Auto select type</string>
+    <string name="range_of_auto_select_title">Range of auto select</string>
+    <string name="range_of_auto_select_title_summary">Range between the first auto selected message and another messages</string>
+    <string name="range_of_auto_select_hint">minutes</string>
+    <string name="range_of_auto_select_helper">minimum value is 1.</string>
+
+    <!-- Advanced Preference -->
+    <string name="ignore_battery_optimization">Ignore battery optimization</string>
+    <string name="android_version_not_supported">Your device Android version is not supported.</string>
+    <string name="ignore_battery_optimization_summary">Not recommended. App can still send SMS while the device is dozing.</string>
+    <string name="battery_optimization_ignored">Battery optimizations already ignored.</string>
+
+    <!-- About Preferences -->
+    <string name="build_version" translatable="false">Build version</string>
+    <string name="contact_developer">Contact Developer</string>
+    <string name="contact_developer_summary">Bug reports and suggestions about this app are welcome.</string>
+    <string name="open_source_licences" translatable="false">Open Source Licences</string>
+    <string name="open_source_licences_summary" translatable="false">License details for open source software</string>
+    <string name="what_is_new_title" translatable="false">What\'s New</string>
+
 </resources>

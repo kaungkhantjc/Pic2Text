@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/send_sms_menu_save_to_code_library"
+        android:icon="@drawable/ic_baseline_save_24"
+        android:title="@string/menu_save_to_picture_library"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/send_sms_menu_settings"
+        android:title="@string/menu_settings" />
+
+    <item
+        android:id="@+id/send_sms_menu_preview"
+        android:title="@string/menu_preview" />
+
+    <item
+        android:id="@+id/send_sms_menu_all_text"
+        android:title="@string/menu_all_texts" />
+</menu>

@@ -21,14 +21,17 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.jcoder.picsms.R;
 import com.jcoder.picsms.adapters.SmsDetailAdapter;
 import com.jcoder.picsms.databinding.DialogSmsConfirmationBinding;
 import com.jcoder.picsms.decorations.SpacingItemDecoration;
 import com.jcoder.picsms.models.SmsDetailModel;
+import com.jcoder.picsms.preferences.PreferenceUtils;
 import com.jcoder.picsms.utils.ChunkUtils;
 import com.jcoder.picsms.utils.ClipboardUtils;
 import com.jcoder.picsms.utils.Constants;
+import com.jcoder.picsms.utils.SMSUtil;
 import com.jcoder.picsms.utils.TextLayoutErrorRemover;
 
 import java.util.ArrayList;
@@ -41,6 +44,7 @@ public class SmsConfirmationDialog extends BottomSheetDialogFragment {
     private DialogSmsConfirmationBinding binding;
     private OnSendClickedListener onSendClickedListener;
 
+    final List<SmsDetailModel> smsDetails = new ArrayList<>();
     private final String DEFAULT_SIM = "Default SIM";
     private final ArrayList<String> SIMs = new ArrayList<>();
 
@@ -55,50 +59,21 @@ public class SmsConfirmationDialog extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final List<SmsDetailModel> smsDetails = new ArrayList<>();
-        smsDetails.add(
-                new SmsDetailModel(
-                        "1 Chunk",
-                        String.format(Locale.ENGLISH, "up to %d characters", Constants.MAX_CHARACTERS_PER_CHUNK),
-                        ContextCompat.getColor(requireContext(), R.color.number_badge_color)
-                )
-        );
-        smsDetails.add(
-                new SmsDetailModel(
-                        "1 SMS",
-                        String.format(Locale.ENGLISH, "up to %d characters", Constants.MAX_CHARACTERS_PER_SMS + 3),
-                        ContextCompat.getColor(requireContext(), R.color.number_badge_color)
-                )
-        );
-
-        int smsCount = Constants.list.length;
-        smsDetails.add(
-                new SmsDetailModel(
-                        "Total SMS",
-                        String.valueOf(smsCount),
-                        -1
-                )
-        );
-
-        int lastSmsChunks = ChunkUtils.getChunkCount(Constants.list[smsCount - 1]);
-        int totalChunks = smsCount == 1 ? lastSmsChunks : ((smsCount - 1) * 8) + lastSmsChunks;
-
-        smsDetails.add(
-                new SmsDetailModel(
-                        "Total Chunks",
-                        String.valueOf(totalChunks),
-                        -1
-                )
-        );
+        addDetailItems();
 
         binding.recycler.setNestedScrollingEnabled(false);
-        SpacingItemDecoration decoration = new SpacingItemDecoration(1, SpacingItemDecoration.toPx(requireContext(), 10), true);
+        SpacingItemDecoration decoration = new SpacingItemDecoration(1, SpacingItemDecoration.toPx(requireContext(), 6), true);
         binding.recycler.addItemDecoration(decoration);
         SmsDetailAdapter adapter = new SmsDetailAdapter(smsDetails);
         binding.recycler.setAdapter(adapter);
 
-        binding.edt.addTextChangedListener(new TextLayoutErrorRemover(binding.edtLayout));
+        binding.btnDefaultSmsAppLearnMore.setOnClickListener(v -> showDefaultSmsAppNoticeDialog());
+        binding.btnSetAsDefaultSmsApp.setOnClickListener(v -> SMSUtil.requestDefaultSmsApp(requireActivity()));
+        binding.switchDoNotSaveMsg.setEnabled(SMSUtil.isDefaultApp(requireContext()));
+        binding.switchDoNotSaveMsg.setChecked(PreferenceUtils.doNotSaveSentMessagesEnabled(requireContext()));
+        binding.switchDoNotSaveMsg.setOnCheckedChangeListener((buttonView, isChecked) -> PreferenceUtils.setDoNotSaveSentMessages(requireContext(), isChecked));
 
+        binding.edt.addTextChangedListener(new TextLayoutErrorRemover(binding.edtLayout));
         binding.edtLayout.setEndIconOnClickListener(v -> {
             String text = ClipboardUtils.getTextFromClipboard(requireContext());
             if (!TextUtils.isEmpty(text) && Patterns.PHONE.matcher(text).matches()) {
@@ -115,9 +90,74 @@ public class SmsConfirmationDialog extends BottomSheetDialogFragment {
         if (onSendClickedListener != null)
             binding.btnSendAll.setOnClickListener(v -> checkPhoneNumber());
 
-        binding.actvSIM.setOnClickListener(v -> selectSIMCard());
+        binding.btnHowSmsWorksLearnMore.setOnClickListener(v -> showHowSmsWorksDialog());
+        setupSIMAdapter();
+
+        if (PreferenceUtils.rememberPhoneNumberEnabled(requireContext())) {
+            String phoneNumber = PreferenceUtils.getPhoneNumber(requireContext());
+            if (phoneNumber != null) binding.edt.setText(phoneNumber);
+        }
+
+        if (PreferenceUtils.rememberSimSlotEnabled(requireContext())) {
+            int simSlot = PreferenceUtils.getSimSlotPosition(requireContext());
+            if (simSlot != -1 && SIMs.size() >= simSlot) {
+                binding.actvSIM.setText(SIMs.get(simSlot), false);
+            }
+        }
     }
 
+    private void showDefaultSmsAppNoticeDialog() {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setMessage(R.string.default_sms_app_notice)
+                .setPositiveButton(R.string.btn_ok, null)
+                .show();
+    }
+
+    private void addDetailItems() {
+        smsDetails.add(
+                new SmsDetailModel(
+                        getString(R.string.one_chunk),
+                        String.format(Locale.getDefault(), getString(R.string.up_to_n_characters), Constants.MAX_CHARACTERS_PER_CHUNK),
+                        ContextCompat.getColor(requireContext(), R.color.number_badge_color)
+                )
+        );
+
+        smsDetails.add(
+                new SmsDetailModel(
+                        getString(R.string.one_sms),
+                        String.format(Locale.getDefault(), getString(R.string.up_to_n_characters), Constants.MAX_CHARACTERS_PER_SMS),
+                        ContextCompat.getColor(requireContext(), R.color.number_badge_color)
+                )
+        );
+
+        int smsCount = Constants.list.length;
+        smsDetails.add(
+                new SmsDetailModel(
+                        getString(R.string.total_sms),
+                        String.format(Locale.getDefault(), "%d", smsCount),
+                        -1
+                )
+        );
+
+        int lastSmsChunks = ChunkUtils.getChunkCount(Constants.list[smsCount - 1]);
+        int totalChunks = smsCount == 1 ? lastSmsChunks : ((smsCount - 1) * 8) + lastSmsChunks;
+
+        smsDetails.add(
+                new SmsDetailModel(
+                        getString(R.string.total_chunks),
+                        String.format(Locale.getDefault(), "%d", totalChunks),
+                        -1
+                )
+        );
+    }
+
+    private void showHowSmsWorksDialog() {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.how_sms_works_title)
+                .setMessage(R.string.how_sms_works_message)
+                .setPositiveButton(R.string.btn_ok, null)
+                .show();
+    }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     @SuppressLint("MissingPermission")
@@ -126,13 +166,11 @@ public class SmsConfirmationDialog extends BottomSheetDialogFragment {
         return localSubscriptionManager.getActiveSubscriptionInfoList();
     }
 
-
-    private void selectSIMCard() {
-        binding.actvSIM.setOnClickListener(v -> binding.actvSIM.showDropDown());
-
+    private void setupSIMAdapter() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
             List<SubscriptionInfo> subscriptions = getSubscriptions();
-            if (subscriptions.size() >= 2) {
+            // subscriptions return null when SIM is not inserted
+            if (subscriptions != null && subscriptions.size() >= 2) {
                 for (SubscriptionInfo info : subscriptions) {
                     SIMs.add(info.getCarrierName().toString());
                 }
@@ -141,10 +179,7 @@ public class SmsConfirmationDialog extends BottomSheetDialogFragment {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_list_item_1, SIMs);
         binding.actvSIM.setAdapter(adapter);
-
-        binding.actvSIM.performClick();
     }
-
 
     private void checkPhoneNumber() {
         String phoneNumber = Objects.requireNonNull(binding.edt.getText()).toString().trim();
@@ -153,6 +188,12 @@ public class SmsConfirmationDialog extends BottomSheetDialogFragment {
 
             String sim = binding.actvSIM.getText().toString();
             int simState = TextUtils.equals(sim, DEFAULT_SIM) ? -1 : SIMs.indexOf(sim);
+
+            if (PreferenceUtils.rememberPhoneNumberEnabled(requireContext()))
+                PreferenceUtils.setPhoneNumber(requireContext(), phoneNumber);
+            if (PreferenceUtils.rememberSimSlotEnabled(requireContext()))
+                PreferenceUtils.setSimSlot(requireContext(), simState);
+
             onSendClickedListener.onSendClicked(phoneNumber, simState);
             dismiss();
         } else binding.edtLayout.setError(getString(R.string.invalid_phone));
@@ -173,4 +214,12 @@ public class SmsConfirmationDialog extends BottomSheetDialogFragment {
     public void setOnSendClickedListener(OnSendClickedListener onSendClickedListener) {
         this.onSendClickedListener = onSendClickedListener;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.switchDoNotSaveMsg.setEnabled(SMSUtil.isDefaultApp(requireContext()));
+    }
+
+
 }

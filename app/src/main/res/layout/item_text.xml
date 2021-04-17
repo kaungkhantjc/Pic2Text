@@ -8,32 +8,53 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp">
+        android:gravity="center_vertical">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/item_text_tv_number"
+            android:id="@+id/tvNumber"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/number_badge"
             android:gravity="center"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_margin="10dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             tools:text="1" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/item_text_tv_chunk"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_weight="1"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            tools:text="Chunks : 1" />
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_marginTop="5dp"
+                android:id="@+id/tvChunk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                tools:text="Chunks : 1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvSentBadge"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sms_sent_badge"
+                android:textSize="12sp"
+                android:textColor="@color/colorControlNormal"
+                tools:text="sent"/>
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/item_text_iv_copy"
+            android:id="@+id/ivCopy"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_margin="10dp"
+            android:layout_marginEnd="10dp"
+            android:padding="5dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            app:srcCompat="@drawable/ic_baseline_content_copy_24" />
+            app:srcCompat="@drawable/ic_baseline_content_copy_24"
+            tools:ignore="UnusedAttribute" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

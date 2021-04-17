@@ -1,0 +1,104 @@
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/user_interface">
+
+        <ListPreference
+            app:defaultValue="-1"
+            app:entries="@array/theme_entries"
+            app:entryValues="@array/theme_values"
+            app:icon="@drawable/ic_baseline_color_lens_24"
+            app:key="theme"
+            app:negativeButtonText="@string/btn_cancel"
+            app:title="@string/app_theme_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="en"
+            app:entries="@array/language_entries"
+            app:entryValues="@array/language_values"
+            app:icon="@drawable/ic_baseline_language_24"
+            app:key="language"
+            app:negativeButtonText="@string/btn_cancel"
+            app:title="@string/language"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="General">
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:icon="@drawable/ic_baseline_contact_phone_24"
+            app:key="remember_phone_number"
+            app:summary="@string/remember_phone_number_summary"
+            app:title="@string/remember_phone_number_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:icon="@drawable/ic_baseline_sim_card_24"
+            app:key="remember_sim_slot"
+            app:summary="@string/remember_sim_slot_summary"
+            app:title="@string/remember_sim_slot_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:icon="@drawable/ic_baseline_library_codes_24"
+            app:key="ask_to_save_in_picture_library"
+            app:summary="@string/ask_to_save_in_picture_library_summary"
+            app:title="@string/ask_to_save_in_picture_library_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/sms_picker">
+
+        <ListPreference
+            app:defaultValue="1"
+            app:entries="@array/auto_select_type_entries"
+            app:entryValues="@array/auto_select_type_values"
+            app:icon="@drawable/ic_auto_select"
+            app:key="auto_select_type"
+            app:negativeButtonText="@string/btn_cancel"
+            app:title="@string/auto_select_type"
+            app:useSimpleSummaryProvider="true" />
+
+        <Preference
+            app:icon="@drawable/ic_baseline_access_time_24"
+            app:key="range_of_auto_select"
+            app:summary="@string/range_of_auto_select_title_summary"
+            app:title="@string/range_of_auto_select_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/advanced">
+
+        <Preference
+            app:icon="@drawable/ic_baseline_battery_std_24"
+            app:key="ignore_battery_optimization"
+            app:summary="@string/ignore_battery_optimization_summary"
+            app:title="@string/ignore_battery_optimization" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="About">
+
+        <Preference
+            app:icon="@drawable/ic_baseline_info_24"
+            app:key="build_version"
+            app:layout="@layout/build_version_layout" />
+
+        <Preference
+            app:icon="@drawable/ic_baseline_copyright_24"
+            app:key="open_source_licences"
+            app:summary="@string/open_source_licences_summary"
+            app:title="@string/open_source_licences" />
+
+        <Preference
+            app:icon="@drawable/ic_baseline_facebook_24"
+            app:key="contact_developer"
+            app:summary="@string/contact_developer_summary"
+            app:title="@string/contact_developer" />
+
+        <Preference
+            app:allowDividerAbove="true"
+            app:icon="@drawable/ic_baseline_info_24"
+            app:key="about"
+            app:layout="@layout/about_layout"
+            app:selectable="false" />
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>

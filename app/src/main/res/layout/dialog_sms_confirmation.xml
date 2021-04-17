@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -13,7 +12,7 @@
 
         <View
             android:layout_width="40dp"
-            android:layout_height="10dp"
+            android:layout_height="7dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/top_notch" />
 
@@ -21,17 +20,81 @@
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="2dp"
             android:layoutAnimation="@anim/layout_anim_fall_down"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-        <com.google.android.material.textview.MaterialTextView
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/warning_card"
-            android:text="@string/sms_warning"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sms_warning"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnHowSmsWorksLearnMore"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_marginTop="55dp"
+                android:text="@string/btn_learn_more" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="1dp"
+            android:layout_marginTop="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSetAsDefaultSmsApp"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/btn_set_as_default_sms_app"
+                    android:textAllCaps="false" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorSmsSentBadge" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDefaultSmsAppLearnMore"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/btn_learn_more"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchDoNotSaveMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/do_not_save_sent_messages" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edtLayout"
@@ -52,12 +115,12 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="5dp"
             android:id="@+id/edtSimLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="5dp"
             android:hint="@string/default_sim">
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -80,7 +143,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:text="@android:string/cancel" />
+                android:text="@string/btn_cancel" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSendAll"
@@ -90,7 +153,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:text="@string/send_all" />
+                android:text="@string/btn_send_now" />
 
         </LinearLayout>
     </LinearLayout>

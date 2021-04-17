@@ -1,0 +1,19 @@
+[
+  {
+    "version": "1.1.0",
+    "changes": [
+      "Added new encoding, Optimized Base91, to reduce text length",
+      "Added Myanmar and English languages",
+      "Added dark mode",
+      "Message picker is more faster and stable",
+      "Added Auto select, Auto select between, Select all, Deselect all options",
+      "Added picture library to save unfinished tasks",
+      "Added realtime picture preview while adjusting settings",
+      "Improved Sending SMS UI",
+      "Added edit & save options for current sending SMS position",
+      "Fixed problem that sending progress is disturbed by annoying runtime permissions. You need to set Pic SMS as Default SMS app. Please don't forget to change it back after you sent all messages.",
+      "Added \"Do not save sent messages\" feature (Only available when Pic SMS is Default SMS app)",
+      "Added saving feature for last sent phone number and SIM slot position"
+    ]
+  }
+]

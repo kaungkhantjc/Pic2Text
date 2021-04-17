@@ -24,7 +24,7 @@
                 android:layout_margin="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:hint="@string/paste_hint"
+                android:hint="@string/paste_code_hint"
                 app:endIconDrawable="@drawable/ic_paste"
                 app:endIconMode="custom">
 
@@ -37,12 +37,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabAddToList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:contentDescription="@string/add_to_list"
                 app:fabSize="mini"
-                android:id="@+id/fabAddToList"
                 app:srcCompat="@drawable/ic_baseline_add_24" />
 
         </LinearLayout>
@@ -79,8 +79,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/add_from_messages" />
+            android:text="@string/btn_add_from_messages" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:hint="@string/encoding">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/actvEncoding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -99,6 +114,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layoutAnimation="@anim/layout_anim_fall_down"
+                android:scrollbarStyle="outsideInset"
+                app:fastScrollEnabled="true"
+                app:fastScrollHorizontalThumbDrawable="@drawable/thumb"
+                app:fastScrollHorizontalTrackDrawable="@drawable/track"
+                app:fastScrollVerticalThumbDrawable="@drawable/thumb"
+                app:fastScrollVerticalTrackDrawable="@drawable/track"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
@@ -106,12 +127,12 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabTextToPic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:text="@string/text_to_picture"
-        android:id="@+id/fabTextToPic"
+        android:text="@string/btn_text_to_picture"
         app:icon="@drawable/ic_baseline_text_fields_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

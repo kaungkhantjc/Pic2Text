@@ -12,6 +12,8 @@ public class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
     public interface Callback {
         void onProgressChanged(int progress);
+
+        void onStopTrackingTouch();
     }
 
     @Override
@@ -26,6 +28,6 @@ public class SeekBarListener implements SeekBar.OnSeekBarChangeListener {
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
-
+        callback.onStopTrackingTouch();
     }
 }

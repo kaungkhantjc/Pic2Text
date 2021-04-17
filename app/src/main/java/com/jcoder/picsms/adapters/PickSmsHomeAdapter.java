@@ -1,5 +1,6 @@
 package com.jcoder.picsms.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.google.android.material.textview.MaterialTextView;
 import com.jcoder.picsms.R;
 import com.jcoder.picsms.models.Conversation;
 import com.jcoder.picsms.models.Message;
+import com.jcoder.picsms.utils.PreciseTime;
 
 import java.util.ArrayList;
 
@@ -18,8 +20,10 @@ public class PickSmsHomeAdapter extends RecyclerView.Adapter<PickSmsHomeAdapter.
 
     private final ArrayList<Conversation> conversations;
     private OnItemClickedListener onItemClickedListener;
+    private final PreciseTime preciseTime;
 
-    public PickSmsHomeAdapter(ArrayList<Conversation> conversations) {
+    public PickSmsHomeAdapter(Context context, ArrayList<Conversation> conversations) {
+        preciseTime = new PreciseTime(context);
         this.conversations = conversations;
     }
 
@@ -29,13 +33,14 @@ public class PickSmsHomeAdapter extends RecyclerView.Adapter<PickSmsHomeAdapter.
         return new PlaceHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pick_sms_home, parent, false));
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull PlaceHolder holder, int position) {
         Conversation conversation = conversations.get(position);
+        String dateStr = preciseTime.prettyFormat(conversation.getDate());
+
         holder.tvAddress.setText(conversation.getAddress());
         holder.tvBody.setText(conversation.getBody());
-        holder.tvDate.setText(conversation.getDate());
+        holder.tvDate.setText(dateStr);
 
         if (onItemClickedListener != null)
             holder.itemView.setOnClickListener(v -> {

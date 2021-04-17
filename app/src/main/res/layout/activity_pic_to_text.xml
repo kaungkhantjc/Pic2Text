@@ -6,82 +6,116 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.PicToTextActivity">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="20dp">
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/switchOptimizeResolution"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/optimize_resolution" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/picture_resolution"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <androidx.appcompat.widget.AppCompatSeekBar
-                android:id="@+id/seekPicResolution"
-                android:layout_width="0dp"
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchOptimizeResolution"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:max="100"
-                android:progress="80" />
+                android:checked="true"
+                android:text="@string/optimize_resolution" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvProgressResolution"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:gravity="end"
-                android:text="@string/_80_percent"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-        </LinearLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/bitmap_quality"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.AppCompatSeekBar
-                android:id="@+id/seekPicQuality"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:max="100"
-                android:progress="50" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvProgressQuality"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:gravity="end"
-                android:text="@string/_50_percent"
+                android:text="@string/picture_resolution"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </LinearLayout>
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/seekPicResolution"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:max="100"
+                    android:progress="80" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvProgressResolution"
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="end"
+                    android:text="@string/_80_percent"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/bitmap_quality"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/seekPicQuality"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:max="100"
+                    android:progress="50" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvProgressQuality"
+                    android:layout_width="46dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="end"
+                    android:text="@string/_50_percent"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:hint="@string/encoding">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/actvEncoding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPickPicture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/btn_pick_picture"
+                app:icon="@drawable/ic_baseline_image_24" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivPreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitCenter" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabPic2Text"
@@ -89,9 +123,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
-        android:contentDescription="@string/picture_to_text"
-        android:text="@string/picture_to_text"
-        app:icon="@drawable/ic_baseline_image_24" />
-
+        android:contentDescription="@string/btn_picture_to_text"
+        android:text="@string/btn_picture_to_text"
+        app:icon="@drawable/ic_baseline_format_list_bulleted_24" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

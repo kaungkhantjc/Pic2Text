@@ -9,29 +9,48 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBar;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.jcoder.picsms.async.BitmapToTextTask;
+import com.google.android.material.snackbar.Snackbar;
+import com.jcoder.picsms.R;
+import com.jcoder.picsms.adapters.EncodingAdapter;
+import com.jcoder.picsms.async.BytesToTextTask;
+import com.jcoder.picsms.async.OptimizePictureTask;
 import com.jcoder.picsms.async.TaskRunner;
 import com.jcoder.picsms.databinding.ActivityPicToTextBinding;
+import com.jcoder.picsms.encoding.EncodingType;
 import com.jcoder.picsms.listeners.SeekBarListener;
-import com.jcoder.picsms.ui.TextActivity;
+import com.jcoder.picsms.models.Encoding;
+import com.jcoder.picsms.ui.BaseActivity;
+import com.jcoder.picsms.ui.sendsms.SendSmsActivity;
+import com.jcoder.picsms.ui.settings.SettingsActivity;
 import com.jcoder.picsms.utils.PermissionUtil;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 
-public class PicToTextActivity extends AppCompatActivity {
+public class PicToTextActivity extends BaseActivity {
 
     private ActivityPicToTextBinding binding;
     private static final int REQ_CODE_PICK_IMAGE = 100;
     private static final int REQ_CODE_READ_EXTERNAL_STORAGE = 123;
+
+    private final TaskRunner taskRunner = new TaskRunner();
+    private Uri pickedPictureUri;
+    private byte[] optimizedPictureBytes;
+
+    private EncodingAdapter adapter;
+    private final ArrayList<Encoding> encodings = new ArrayList<>();
 
     PermissionUtil.PermissionListener permissionListener = new PermissionUtil.PermissionListener() {
         @Override
@@ -62,15 +81,47 @@ public class PicToTextActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPicToTextBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        binding.seekPicResolution.setOnSeekBarChangeListener(new SeekBarListener(
-                progress -> binding.tvProgressResolution.setText(String.format(Locale.getDefault(), "%d%%", progress))));
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle(R.string.btn_picture_to_text);
+        }
 
-        binding.seekPicQuality.setOnSeekBarChangeListener(new SeekBarListener(
-                progress -> binding.tvProgressQuality.setText(String.format(Locale.getDefault(), "%d%%", progress))));
+        encodings.add(new Encoding(EncodingType.OPTIMIZED_BASE91_V1_1_0, getString(R.string.encoding_optimized_base91_v1_1_0), getString(R.string.encoding_optimized_base91_v1_1_0_message)));
+        encodings.add(new Encoding(EncodingType.BASE64, getString(R.string.encoding_base64_v1_0_0), getString(R.string.encoding_base64_v1_0_0_message)));
 
-        binding.fabPic2Text.setOnClickListener(v -> checkStoragePermission());
+        binding.seekPicResolution.setOnSeekBarChangeListener(new SeekBarListener(new SeekBarListener.Callback() {
+            @Override
+            public void onProgressChanged(int progress) {
+                binding.tvProgressResolution.setText(String.format(Locale.getDefault(), "%d%%", progress));
+            }
+
+            @Override
+            public void onStopTrackingTouch() {
+                startOptimizedPictureTask();
+            }
+        }));
+
+        binding.seekPicQuality.setOnSeekBarChangeListener(new SeekBarListener(new SeekBarListener.Callback() {
+            @Override
+            public void onProgressChanged(int progress) {
+                binding.tvProgressQuality.setText(String.format(Locale.getDefault(), "%d%%", progress));
+            }
+
+            @Override
+            public void onStopTrackingTouch() {
+                startOptimizedPictureTask();
+            }
+        }));
+
+        binding.btnPickPicture.setOnClickListener(v -> checkStoragePermission());
+        binding.switchOptimizeResolution.setOnCheckedChangeListener((buttonView, isChecked) -> startOptimizedPictureTask());
+        binding.fabPic2Text.setOnClickListener(v -> startBytesToCodesTask());
+
+        adapter = new EncodingAdapter(encodings);
+        binding.actvEncoding.setAdapter(adapter);
+        binding.actvEncoding.setText(encodings.get(0).getEncodingName(), false);
     }
 
     private void pickImage() {
@@ -86,10 +137,10 @@ public class PicToTextActivity extends AppCompatActivity {
 
     private void showPermissionAlert() {
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Need Storage Access")
-                .setMessage("App needs Storage Access to pick picture.")
-                .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton(android.R.string.ok, ((dialog, which) -> permissionUtil.requestPermissions()))
+                .setTitle(R.string.permission_need_storage_title)
+                .setMessage(R.string.permission_need_storage_message1)
+                .setNegativeButton(R.string.btn_cancel, null)
+                .setPositiveButton(R.string.btn_ok, ((dialog, which) -> permissionUtil.requestPermissions()))
                 .show();
     }
 
@@ -115,8 +166,17 @@ public class PicToTextActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.picture_to_text_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) finish();
+        int id = item.getItemId();
+        if (id == android.R.id.home) finish();
+        if (id == R.id.picture_to_text_menu_settings)
+            startActivity(new Intent(this, SettingsActivity.class));
         return super.onOptionsItemSelected(item);
     }
 
@@ -125,25 +185,8 @@ public class PicToTextActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQ_CODE_PICK_IMAGE && resultCode == RESULT_OK && data != null) {
-            Uri imageUri = data.getData();
-
-            if (imageUri != null) {
-                new TaskRunner().execute(
-                        new BitmapToTextTask(
-                                getBitmapFromUri(imageUri),
-                                binding.seekPicResolution.getProgress(),
-                                binding.seekPicQuality.getProgress(),
-                                binding.switchOptimizeResolution.isChecked()
-                        ),
-                        result -> {
-                            if (result != null)
-                                new MaterialAlertDialogBuilder(PicToTextActivity.this)
-                                        .setMessage(result)
-                                        .setPositiveButton(android.R.string.ok, null)
-                                        .show();
-                            else showResult();
-                        });
-            }
+            pickedPictureUri = data.getData();
+            startOptimizedPictureTask();
         }
     }
 
@@ -153,10 +196,42 @@ public class PicToTextActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private void showResult() {
-        Intent intent = new Intent(this, TextActivity.class);
-        startActivity(intent);
+    private void startOptimizedPictureTask() {
+        if (pickedPictureUri != null) {
+            taskRunner.execute(new OptimizePictureTask(
+                    getBitmapFromUri(pickedPictureUri),
+                    binding.seekPicResolution.getProgress(),
+                    binding.seekPicQuality.getProgress(),
+                    binding.switchOptimizeResolution.isChecked()
+            ), result -> {
+                this.optimizedPictureBytes = result;
+                Glide.with(this)
+                        .load(result)
+                        .transform(new RoundedCorners(20))
+                        .into(binding.ivPreview);
+            });
+        }
     }
 
+    private void startBytesToCodesTask() {
+        EncodingType encodingType = adapter.getEncodingType();
+
+        if (optimizedPictureBytes == null) {
+            Snackbar.make(binding.getRoot(), R.string.pick_a_picture_first, 2000).show();
+        } else {
+            taskRunner.execute(new BytesToTextTask(adapter.getEncodingType(), optimizedPictureBytes), result -> {
+                if (result != null) {
+                    new MaterialAlertDialogBuilder(PicToTextActivity.this)
+                            .setMessage(result)
+                            .setPositiveButton(R.string.btn_ok, null)
+                            .show();
+                } else {
+                    Intent intent = new Intent(this, SendSmsActivity.class);
+                    intent.putExtra(SendSmsActivity.EXTRA_ENCODING_TYPE, encodingType.toString());
+                    startActivity(intent);
+                }
+            });
+        }
+    }
 
 }

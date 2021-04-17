@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="number_badge_color">#353535</color>
+    <color name="number_badge_color">#363636</color>
     <color name="warning_color">#686801</color>
+    <color name="color_sms_sender_background">#FF03DAC5</color>
+
+    <color name="colorTrack">#111111</color>
+    <color name="colorThumb">#505050</color>
+
+    <color name="colorControlNormal">#151515</color>
+    <color name="colorControlIntense">#FFFFFF</color>
+
+
+    <color name="colorSmsReceivedBackground">#3A3A3A</color>
+    <color name="colorSmsSentBadge">#FFBB86FC</color>
+    <color name="colorPicLibraryProgressBackground">#83FFFFFF</color>
 </resources>

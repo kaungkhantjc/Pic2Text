@@ -9,6 +9,18 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
 
-    <color name="number_badge_color">#F1F1F1</color>
+    <color name="number_badge_color">#EBEBEB</color>
     <color name="warning_color">#FFFFC0</color>
+    <color name="color_sms_sender_background">#C3FFFF</color>
+
+    <color name="colorTrack">#FFFFFF</color>
+    <color name="colorThumb">#D6D6D6</color>
+
+    <color name="colorControlNormal">#FFFFFF</color>
+    <color name="colorControlIntense">#151515</color>
+
+    <color name="colorSmsReceivedBackground">#F4F4F4</color>
+
+    <color name="colorSmsSentBadge">#FF6200EE</color>
+    <color name="colorPicLibraryProgressBackground">#77000000</color>
 </resources>

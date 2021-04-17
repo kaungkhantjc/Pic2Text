@@ -1,0 +1,47 @@
+<resources>
+    <!-- Theme Preference -->
+    <string-array name="theme_entries">
+        <item>မူလအတိုင်း</item>
+        <item>အလင်း</item>
+        <item>အမှောင်</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>-1</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <!-- Language Preference -->
+    <string-array name="language_entries">
+        <item>English</item>
+        <item>မြန်မာ</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>en</item>
+        <item>my</item>
+    </string-array>
+
+    <!-- Auto select type Preference -->
+    <string-array name="auto_select_type_entries">
+        <item>အဝင်စာများ</item>
+        <item>အထွက်စာများ</item>
+    </string-array>
+
+    <string-array name="auto_select_type_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <!-- PreciseTime class -->
+    <string-array name="precise_time_values">
+        <item>အနာဂတ်</item>
+        <item>ယခုလေးတင်</item>
+        <item>၁ မိနစ် အကြာက</item>
+        <item>%d မိနစ် အကြာက</item>
+        <item>၁ နာရီ အကြာက</item>
+        <item>မနေ့က</item>
+    </string-array>
+
+</resources>

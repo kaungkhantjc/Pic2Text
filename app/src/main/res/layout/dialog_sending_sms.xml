@@ -12,7 +12,7 @@
 
         <View
             android:layout_width="40dp"
-            android:layout_height="10dp"
+            android:layout_height="7dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/top_notch" />
 
@@ -22,96 +22,101 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:id="@+id/message"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:text="@string/sms_progress"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/smsProgress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/smsPercent"
-                android:layout_width="0dp"
+                android:id="@+id/message"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/_0_percent"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+                android:layout_marginTop="20dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/smsCount"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/sms_progress"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/smsProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:trackCornerRadius="30dp"
+                app:trackThickness="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/smsPercent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_0_percent"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/smsCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/chunk_progress"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/chunkProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:indicatorColor="@color/teal_700"
+                app:trackCornerRadius="30dp"
+                app:trackThickness="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/chunkPercent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/_0_percent"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/chunkCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"
-            android:text="@string/chunk_progress"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/chunkProgress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:indicatorColor="@color/teal_700" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/chunkPercent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/_0_percent"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/chunkCount"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-
-        </LinearLayout>
-        </LinearLayout>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
             android:id="@+id/tvDoubleTabWarning"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/press_again_to_cancel"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             android:textColor="@color/red"
-            android:visibility="gone"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/press_again_to_cancel"/>
+            android:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCancel"
@@ -119,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="@android:string/cancel" />
+            android:text="@string/btn_cancel" />
 
 
     </LinearLayout>

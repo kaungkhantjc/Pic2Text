@@ -1,0 +1,47 @@
+<resources>
+    <!-- Theme Preference -->
+    <string-array name="theme_entries">
+        <item>System Default</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>-1</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <!-- Language Preference -->
+    <string-array name="language_entries">
+        <item>English</item>
+        <item>Myanmar</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>en</item>
+        <item>my</item>
+    </string-array>
+
+    <!-- Auto select type Preference -->
+    <string-array name="auto_select_type_entries">
+        <item>Incoming messages</item>
+        <item>Outgoing messages</item>
+    </string-array>
+
+    <string-array name="auto_select_type_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <!-- PreciseTime class -->
+    <string-array name="precise_time_values">
+        <item>future</item>
+        <item>moments ago</item>
+        <item>1 minute ago</item>
+        <item>%d minutes ago</item>
+        <item>1 hour ago</item>
+        <item>yesterday</item>
+    </string-array>
+
+</resources>

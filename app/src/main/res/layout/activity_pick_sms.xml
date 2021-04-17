@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.PickSmsActivity">
+    tools:context=".ui.picksms.PickSmsActivity">
 
     <LinearLayout
-        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
         android:paddingEnd="10dp">
@@ -39,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:textColor="@color/purple_500"
+            android:textColor="?attr/colorPrimary"
             android:visibility="gone"
             tools:text="097900079"
             tools:visibility="visible" />
@@ -60,7 +59,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layoutAnimation="@anim/layout_anim_fall_down"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:fastScrollEnabled="true"
+            android:scrollbarStyle="outsideInset"
+            app:fastScrollHorizontalThumbDrawable="@drawable/thumb"
+            app:fastScrollHorizontalTrackDrawable="@drawable/track"
+            app:fastScrollVerticalThumbDrawable="@drawable/thumb"
+            app:fastScrollVerticalTrackDrawable="@drawable/track" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

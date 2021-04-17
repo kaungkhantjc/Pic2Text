@@ -3,8 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/pic_sms_menu_auto_select"
+        android:enabled="false"
+        android:icon="@drawable/ic_auto_select"
+        android:title="@string/menu_auto_select"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/pic_sms_menu_done"
+        android:enabled="false"
         android:icon="@drawable/ic_baseline_done_24"
-        app:showAsAction="ifRoom"
-        android:title="@string/done" />
+        android:title="@string/menu_done"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/pic_sms_menu_auto_select_between"
+        android:enabled="false"
+        android:title="@string/menu_auto_select_between" />
+
+    <item
+        android:id="@+id/pic_sms_menu_select_all"
+        android:enabled="false"
+        android:title="@string/menu_select_all" />
+
+    <item
+        android:id="@+id/pic_sms_menu_deselect_all"
+        android:enabled="false"
+        android:title="@string/menu_deselect_all" />
+
 </menu>

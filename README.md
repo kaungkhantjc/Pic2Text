@@ -15,7 +15,7 @@ With Pic SMS, you can:
 #
 ### Download app
 
-https://raw.githubusercontent.com/kaungkhantjc/Pic2Text/master/PicSMS_v1.0.0.apk
+https://github.com/kaungkhantjc/Pic2Text/releases/download/1.1.0/PicSMS_v1.1.0.apk
 
 ### Screenshots
 
